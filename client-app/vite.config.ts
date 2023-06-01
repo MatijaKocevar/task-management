@@ -4,7 +4,12 @@ import mkcert from "vite-plugin-mkcert";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), mkcert()],
+  plugins: [
+    react({
+      include: "**/*.tsx",
+    }),
+    mkcert(),
+  ],
   server: {
     port: 44434,
     strictPort: true,
