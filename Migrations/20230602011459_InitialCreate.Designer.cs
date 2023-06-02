@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace task_management.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230601024031_InitialCreate")]
+    [Migration("20230602011459_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -36,6 +36,9 @@ namespace task_management.Migrations
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

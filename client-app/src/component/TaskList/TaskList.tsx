@@ -1,7 +1,11 @@
 import "./TaskListStyle.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-export const TaskList = () => {
+interface TaskListProps {
+  setExistingTaskId: React.Dispatch<React.SetStateAction<number | undefined>>;
+}
+
+export const TaskList = (props: TaskListProps) => {
   const [data, setData] = useState<Task[]>([]);
 
   useEffect(() => {
@@ -18,22 +22,43 @@ export const TaskList = () => {
     fetchAllTasks();
   }, []);
 
+  const handleTaskItemClick = (id: number) => {
+    props.setExistingTaskId(id);
+  };
+
   return (
     <div className="search-section">
       <h1>Task List</h1>
-      {data.map((task: Task) => {
-        return (
-          <div className="task-item" key={task.id}>
-            <div className="task-item__description">{task.description}</div>
-            {task.status && (
-              <input className="task-item__status" type="checkbox" checked />
-            )}
-            {!task.status && (
-              <input className="task-item__status" type="checkbox" />
-            )}
-          </div>
-        );
-      })}
+      <div className="tasks-wrapper">
+        {data.map((task: Task) => {
+          return (
+            <div
+              className="task-item"
+              key={task.id}
+              onClick={() => handleTaskItemClick(task.id)}
+            >
+              <div className="task-item__id">{task.id}</div>
+              <div className="task-item__title">{task.title}</div>
+              {task.status && (
+                <input
+                  className="task-item__status"
+                  type="checkbox"
+                  checked
+                  readOnly
+                />
+              )}
+              {!task.status && (
+                <input
+                  className="task-item__status"
+                  type="checkbox"
+                  readOnly
+                  checked={false}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
