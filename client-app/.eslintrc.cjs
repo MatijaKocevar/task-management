@@ -1,3 +1,5 @@
+/*eslint no-undef: "off"*/
+
 module.exports = {
   env: { browser: true, es2020: true },
   extends: [
@@ -7,8 +9,10 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', "react-hooks"],
   rules: {
     'react-refresh/only-export-components': 'warn',
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
 }

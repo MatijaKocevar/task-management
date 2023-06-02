@@ -12,6 +12,7 @@
     <SpaProxyLaunchCommand>npm run start</SpaProxyLaunchCommand>
     <RootNamespace>task_management</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
+    <LaunchBrowser>false</LaunchBrowser>
   </PropertyGroup>
 
   <ItemGroup>

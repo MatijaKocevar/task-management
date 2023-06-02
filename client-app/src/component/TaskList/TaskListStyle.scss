@@ -1,0 +1,28 @@
+.search-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  border-radius: 10px;
+  padding: 2rem;
+  background-color: #007acc;
+
+  .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #fff;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+
+    .task-item__description {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #000;
+    }
+  }
+}
