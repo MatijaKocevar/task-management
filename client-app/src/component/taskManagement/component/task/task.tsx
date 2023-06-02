@@ -4,7 +4,7 @@ import ToggleSwitch from "../../../shared/toogleSwitch/toggleSwitch";
 import { Task } from "../../../../types/types";
 
 interface TaskProps {
-	id?: number;
+	existingTaskId?: number;
 	setExistingTaskId: React.Dispatch<React.SetStateAction<number | undefined>>;
 	setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -16,12 +16,13 @@ export const TaskSection = (props: TaskProps) => {
 		description: "",
 		status: false,
 	});
-	const { id, setExistingTaskId, setUpdateList } = props;
+	const { existingTaskId, setExistingTaskId, setUpdateList } = props;
+	const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
 
 	useEffect(() => {
 		const fetchTask = async () => {
 			try {
-				const response = await fetch(`https://localhost:44434/api/tasks/${id}`);
+				const response = await fetch(`https://localhost:44434/api/tasks/${existingTaskId}`);
 				const responseData: Task = await response.json();
 				setTask(responseData);
 			} catch (error) {
@@ -29,14 +30,9 @@ export const TaskSection = (props: TaskProps) => {
 			}
 		};
 
-		if (id) fetchTask();
-	}, [id]);
-
-	// useEffect(() => {
-	// 	if (task) {
-	// 		console.log(task);
-	// 	}
-	// }, [task]);
+		if (existingTaskId) fetchTask();
+		console.log("existingId", existingTaskId);
+	}, [existingTaskId]);
 
 	const handleNewTask = () => {
 		setTask({
@@ -45,6 +41,7 @@ export const TaskSection = (props: TaskProps) => {
 			description: "",
 			status: false,
 		});
+		setExistingTaskId(undefined);
 	};
 
 	const handleSaveChanges = async () => {
@@ -81,10 +78,45 @@ export const TaskSection = (props: TaskProps) => {
 		if (task.id === 0) {
 			await saveTask();
 			setUpdateList(true);
+			setHasUnsavedChanges(false);
 		} else {
 			await updateTask();
 			setUpdateList(true);
+			setHasUnsavedChanges(false);
 		}
+	};
+
+	const handleDeleteTask = async () => {
+		try {
+			await fetch(`https://localhost:44434/api/tasks/${task.id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(task),
+			});
+
+			setTask({
+				id: 0,
+				title: "",
+				description: "",
+				status: false,
+			});
+			setUpdateList(true);
+			setExistingTaskId(undefined);
+		} catch (error) {
+			console.error("Error fetching data:", error);
+		}
+	};
+
+	const handleOnChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setTask({ ...task, title: e.target.value });
+		setHasUnsavedChanges(true);
+	};
+
+	const handleOnChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setTask({ ...task, description: e.target.value });
+		setHasUnsavedChanges(true);
 	};
 
 	return (
@@ -93,10 +125,13 @@ export const TaskSection = (props: TaskProps) => {
 				<h1 className='section__title'>Task</h1>
 				<div className='action-buttons'>
 					<button className='section__button' onClick={handleNewTask}>
-						New Task
+						New task
 					</button>
-					<button className='section__button' onClick={handleSaveChanges}>
+					<button className={`section__button ${hasUnsavedChanges ? "" : "disabled"}`} onClick={handleSaveChanges} disabled={!hasUnsavedChanges}>
 						Save changes
+					</button>
+					<button className={`section__button ${existingTaskId ? "" : "disabled"}`} onClick={handleDeleteTask} disabled={!existingTaskId}>
+						Delete task
 					</button>
 				</div>
 			</div>
@@ -104,24 +139,13 @@ export const TaskSection = (props: TaskProps) => {
 				<div className='task-item'>
 					<div className='task-item__status-row'>
 						<div className='task-item__status-title-col'>
-							<input
-								type='text'
-								placeholder='Task title...'
-								className='task-item__title'
-								value={task.title}
-								onChange={(e) => setTask({ ...task, title: e.target.value })}
-							/>
-							{task.id > 0 && <div className='task-item__id'>id: {task.id == 0 ? "" : task.id}</div>}
+							<input type='text' placeholder='Task title...' className='task-item__title' value={task.title} onChange={handleOnChangeTitle} />
+							{<div className='task-item__id'>id: {task.id == 0 ? "" : task.id}</div>}
 							<ToggleSwitch title='Status' status={task.status} setTask={setTask} />
 						</div>
 					</div>
 					<div className='task-item__description'>
-						<textarea
-							className='description'
-							placeholder='Task description...'
-							value={task.description}
-							onChange={(e) => setTask({ ...task, description: e.target.value })}
-						/>
+						<textarea className='description' placeholder='Task description...' value={task.description} onChange={handleOnChangeDescription} />
 					</div>
 				</div>
 			)}

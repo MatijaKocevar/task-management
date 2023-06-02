@@ -13,7 +13,7 @@ const TaskManagement = () => {
 				<h1 className='title'>Task Management</h1>
 				<div className='sections'>
 					<TaskList existingTaskId={existingTaskId} setExistingTaskId={setExsitingTaskId} updateList={updateList} setUpdateList={setUpdateList} />
-					<TaskSection id={existingTaskId} setExistingTaskId={setExsitingTaskId} setUpdateList={setUpdateList} />
+					<TaskSection existingTaskId={existingTaskId} setExistingTaskId={setExsitingTaskId} setUpdateList={setUpdateList} />
 				</div>
 			</div>
 		</>

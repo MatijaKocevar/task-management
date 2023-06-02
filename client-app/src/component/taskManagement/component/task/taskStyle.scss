@@ -20,18 +20,23 @@
 		.action-buttons {
 			display: flex;
 			gap: 0.5rem;
-		}
 
-		.section__button {
-			background-color: #fff;
-			border: none;
-			border-radius: 5px;
-			padding: 0.5rem 1rem 0.5rem 1rem;
-			font-size: 1rem;
-			font-weight: 400;
-			color: #007acc;
-			margin: 1rem 0 1rem 0;
-			cursor: pointer;
+			.section__button {
+				background-color: #fff;
+				border: none;
+				border-radius: 5px;
+				padding: 0.5rem 1rem 0.5rem 1rem;
+				font-size: 1rem;
+				font-weight: 400;
+				color: #007acc;
+				margin: 1rem 0 1rem 0;
+				cursor: pointer;
+			}
+
+			.disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
 		}
 	}
 
