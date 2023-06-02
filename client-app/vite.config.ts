@@ -1,26 +1,38 @@
-import { defineConfig } from "vite";
+import { PluginOption, defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import mkcert from "vite-plugin-mkcert";
 
+const fullReloadAlways: PluginOption = {
+	handleHotUpdate({ server }) {
+		server.ws.send({ type: "full-reload" });
+		return [];
+	},
+} as PluginOption;
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react({
-      include: "**/*.tsx",
-    }),
-    mkcert(),
-  ],
-  server: {
-    port: 44434,
-    strictPort: true,
-    https: true,
-    proxy: {
-      "/api": {
-        target: "http://localhost:5270",
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, "/api"),
-      },
-    },
-  },
+	plugins: [
+		react({
+			include: "**/*.tsx",
+		}),
+		mkcert(),
+		fullReloadAlways,
+	],
+	server: {
+		port: 44434,
+		strictPort: true,
+		https: true,
+		proxy: {
+			"/api": {
+				target: "http://localhost:5270",
+				changeOrigin: true,
+				secure: false,
+				ws: true,
+				rewrite: (path) => path.replace(/^\/api/, "/api"),
+			},
+		},
+	},
+	esbuild: {
+		jsx: "automatic",
+	},
 });

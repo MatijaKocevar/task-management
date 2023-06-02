@@ -41,5 +41,50 @@ namespace TaskManagement.Controllers
 
             return task;
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTask(int id, Task updatedTask)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            task.Title = updatedTask.Title;
+            task.Description = updatedTask.Description;
+            task.Status = updatedTask.Status;
+
+            try
+            {
+                _context.Tasks.Update(task);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                // Handle the exception if the update fails
+                // You can return an appropriate error response or handle it as per your requirements
+                return StatusCode(500, "Failed to update the task.");
+            }
+
+            return CreatedAtAction(nameof(GetTask), new { id = task.Id }, task);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTask(int id)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            _context.Tasks.Remove(task);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
