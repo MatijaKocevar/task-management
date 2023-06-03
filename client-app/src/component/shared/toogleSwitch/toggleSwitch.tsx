@@ -8,14 +8,16 @@ interface ToggleSwitchProps {
 	title?: string;
 	status: boolean;
 	setTask: React.Dispatch<React.SetStateAction<Task>>;
+	setHasUnsavedChanges: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ title, status, setTask }) => {
+const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ title, status, setTask, setHasUnsavedChanges }) => {
 	const [isChecked, setIsChecked] = useState<boolean>();
 
 	const handleChange = () => {
 		setIsChecked(!isChecked);
 		setTask((prevState) => ({ ...prevState, status: !isChecked }));
+		setHasUnsavedChanges(true);
 	};
 
 	useEffect(() => {
