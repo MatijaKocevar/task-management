@@ -2,7 +2,6 @@ import { Task, newTask } from "../../../../../types/types";
 import "./taskToolbarStyle.scss";
 
 interface TaskToolbarProps {
-	existingTaskId?: number;
 	setExistingTaskId: React.Dispatch<React.SetStateAction<number | undefined>>;
 	setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
 	setTask: React.Dispatch<React.SetStateAction<Task>>;
@@ -13,7 +12,7 @@ interface TaskToolbarProps {
 }
 
 const TaskToolbar = (props: TaskToolbarProps) => {
-	const { existingTaskId, setExistingTaskId, setUpdateList, setTask, setHasUnsavedChanges, task, hasUnsavedChanges, setTaskId } = props;
+	const { setExistingTaskId, setUpdateList, setTask, setHasUnsavedChanges, task, hasUnsavedChanges, setTaskId } = props;
 
 	const handleNewTask = () => {
 		setTaskId(newTask.id);

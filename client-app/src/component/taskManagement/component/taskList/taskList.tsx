@@ -1,7 +1,7 @@
 import { Task } from "../../../../types/types";
 import TaskSearch from "./component/taskSearch";
 import "./taskListStyle.scss";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface TaskListProps {
 	existingTaskId?: number;

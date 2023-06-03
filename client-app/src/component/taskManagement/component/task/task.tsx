@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./taskStyle.scss";
 import ToggleSwitch from "../../../shared/toogleSwitch/toggleSwitch";
 import { Task, newTask } from "../../../../types/types";
@@ -62,7 +62,6 @@ const TaskSection = (props: TaskProps) => {
 				setTask={setTask}
 				setUpdateList={setUpdateList}
 				task={task}
-				existingTaskId={existingTaskId}
 				setTaskId={setTaskId}
 			/>
 			{task && (
