@@ -21,7 +21,10 @@ const TaskSection = (props: TaskProps) => {
 			try {
 				const response = await fetch(`https://localhost:44434/api/tasks/${existingTaskId}`);
 				const responseData: Task = await response.json();
-				if (responseData) setTask(responseData);
+				if (responseData) {
+					setTask(responseData);
+					setTaskId(responseData.id);
+				}
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
@@ -67,7 +70,7 @@ const TaskSection = (props: TaskProps) => {
 					<div className='task-item__status-row'>
 						<div className='task-item__status-title-col'>
 							<input type='text' placeholder='Task title...' className='task-item__title' value={task.title} onChange={handleOnChangeTitle} />
-							{<div className='task-item__id'>id: {task.id == 0 ? "" : task.id}</div>}
+							<div className='task-item__id'>id: {taskId == 0 ? "" : taskId}</div>
 							<ToggleSwitch title='Status' status={task.status} setTask={setTask} setHasUnsavedChanges={setHasUnsavedChanges} />
 						</div>
 					</div>

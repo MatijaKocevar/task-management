@@ -16,6 +16,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 	const { existingTaskId, setExistingTaskId, setUpdateList, setTask, setHasUnsavedChanges, task, hasUnsavedChanges, setTaskId } = props;
 
 	const handleNewTask = () => {
+		setTaskId(newTask.id);
 		setTask(newTask);
 		setExistingTaskId(undefined);
 		setHasUnsavedChanges(false);
@@ -74,6 +75,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 			});
 
 			setTask(newTask);
+			setTaskId(newTask.id);
 			setExistingTaskId(undefined);
 			setUpdateList(true);
 		} catch (error) {
@@ -85,13 +87,13 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 		<div className='actions'>
 			<h1 className='section__title'>Task</h1>
 			<div className='action-buttons'>
-				<button className={`section__button ${existingTaskId ? "" : "disabled"}`} onClick={handleNewTask} disabled={!existingTaskId}>
+				<button className={`section__button ${task.id !== 0 ? "" : "disabled"}`} onClick={handleNewTask} disabled={task.id == 0}>
 					New task
 				</button>
 				<button className={`section__button ${hasUnsavedChanges ? "" : "disabled"}`} onClick={handleSaveChanges} disabled={!hasUnsavedChanges}>
 					Save changes
 				</button>
-				<button className={`section__button ${existingTaskId ? "" : "disabled"}`} onClick={handleDeleteTask} disabled={!existingTaskId}>
+				<button className={`section__button ${task.id !== 0 ? "" : "disabled"}`} onClick={handleDeleteTask} disabled={task.id == 0}>
 					Delete task
 				</button>
 			</div>
