@@ -19,6 +19,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 			title: "",
 			description: "",
 			status: false,
+			createdAt: new Date(Date.now()),
 		});
 		setExistingTaskId(undefined);
 		setHasUnsavedChanges(false);
@@ -81,6 +82,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 				title: "",
 				description: "",
 				status: false,
+				createdAt: new Date(Date.now()),
 			});
 			setExistingTaskId(undefined);
 			setUpdateList(true);

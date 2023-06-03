@@ -17,6 +17,7 @@ const TaskSection = (props: TaskProps) => {
 		title: "",
 		description: "",
 		status: false,
+		createdAt: new Date(Date.now()),
 	});
 	const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
 
