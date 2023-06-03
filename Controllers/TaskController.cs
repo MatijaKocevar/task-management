@@ -17,7 +17,9 @@ namespace TaskManagement.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Task>>> GetTasks()
         {
-            var tasks = await _context.Tasks.ToListAsync();
+            var tasks = await _context.Tasks
+                .OrderByDescending(task => task.CreatedAt)
+                .ToListAsync();
             return Ok(tasks);
         }
 
