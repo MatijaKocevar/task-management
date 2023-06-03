@@ -31,7 +31,6 @@ export const TaskSection = (props: TaskProps) => {
 		};
 
 		if (existingTaskId) fetchTask();
-		console.log("existingId", existingTaskId);
 	}, [existingTaskId]);
 
 	const handleNewTask = () => {
@@ -102,8 +101,8 @@ export const TaskSection = (props: TaskProps) => {
 				description: "",
 				status: false,
 			});
-			setUpdateList(true);
 			setExistingTaskId(undefined);
+			setUpdateList(true);
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}

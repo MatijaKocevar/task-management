@@ -14,8 +14,11 @@
 		justify-content: space-between;
 		align-items: center;
 		width: -webkit-fill-available;
-		margin-bottom: 1rem;
-		margin: 0 1rem 0 1rem;
+		margin: 0 1rem;
+
+		.section__title {
+			padding-right: 1rem;
+		}
 
 		.action-buttons {
 			display: flex;
@@ -43,7 +46,6 @@
 	.task-item {
 		display: flex;
 		flex-direction: column;
-		// justify-content: space-between;
 		padding: 1rem;
 		border-radius: 10px;
 		background-color: #fff;

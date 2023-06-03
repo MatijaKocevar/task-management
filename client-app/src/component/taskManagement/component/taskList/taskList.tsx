@@ -1,6 +1,6 @@
 import { Task } from "../../../../types/types";
 import "./taskListStyle.scss";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface TaskListProps {
 	existingTaskId?: number;
@@ -33,18 +33,25 @@ export const TaskList = (props: TaskListProps) => {
 		loadAllTasks();
 	}, []);
 
+	const loadAllTasks = useCallback(async () => {
+		const tasks = await getAllTasks();
+
+		if (tasks) setTasks(tasks);
+	}, []);
+
 	useEffect(() => {
-		if (existingTaskId && updateList) {
-			const loadAllTasks = async () => {
-				const tasks = await getAllTasks();
-
-				if (tasks) setTasks(tasks);
-			};
-
+		if (existingTaskId && !tasks.some((task) => task.id === existingTaskId)) {
 			loadAllTasks();
 			setUpdateList(false);
 		}
-	}, [existingTaskId, tasks, updateList, setUpdateList]);
+	}, [existingTaskId, setUpdateList, loadAllTasks]);
+
+	useEffect(() => {
+		if (updateList) {
+			loadAllTasks();
+			setUpdateList(false);
+		}
+	}, [updateList, setUpdateList, loadAllTasks]);
 
 	const handleTaskItemClick = (id: number) => {
 		setExistingTaskId(id);
