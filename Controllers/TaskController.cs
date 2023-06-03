@@ -101,6 +101,7 @@ namespace TaskManagement.Controllers
                             .Collate(t.Description, "SQL_Latin1_General_CP1_CS_AS")
                             .StartsWith(searchTerm)
                 )
+                .OrderByDescending(task => task.UpdatedAt)
                 .ToListAsync();
 
             return Ok(tasks);

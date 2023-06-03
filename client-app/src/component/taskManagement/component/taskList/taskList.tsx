@@ -59,12 +59,12 @@ const TaskList = (props: TaskListProps) => {
 	};
 
 	useEffect(() => {
-		if (filter) loadFilteredTasks();
+		if (filter != "") loadFilteredTasks();
 		else loadAllTasks();
 	}, [filter, loadAllTasks, loadFilteredTasks]);
 
 	useEffect(() => {
-		if ((existingTaskId && !tasks.some((task) => task.id === existingTaskId)) || updateList) {
+		if ((existingTaskId && !tasks.some((task) => task.id === existingTaskId) && updateList) || updateList) {
 			loadAllTasks();
 			setUpdateList(false);
 		}
@@ -82,6 +82,16 @@ const TaskList = (props: TaskListProps) => {
 
 			if (response.ok) {
 				console.log("Task status updated successfully");
+
+				setTasks((prevTasks) => {
+					const prevTask = prevTasks.find((task) => task.id === id);
+
+					if (prevTask) {
+						prevTask.status = newStatus;
+					}
+
+					return [...prevTasks];
+				});
 			} else {
 				// Handle the error response
 			}
