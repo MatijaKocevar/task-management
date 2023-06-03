@@ -59,8 +59,7 @@ const TaskList = (props: TaskListProps) => {
 	};
 
 	const handleSearch = (searchTerm: string) => {
-		// Implement your search logic here
-		// Update the tasks state based on the search term
+		console.log(searchTerm);
 	};
 
 	return (
@@ -72,14 +71,12 @@ const TaskList = (props: TaskListProps) => {
 				</div>
 				{tasks.map((task: Task) => {
 					return (
-						<>
-							<div className='task-item' key={task.id} onClick={() => handleTaskItemClick(task.id)}>
-								<div className='task-item__id'>{task.id}</div>
-								<div className='task-item__title'>{task.title}</div>
-								{task.status && <input className='task-item__status' type='checkbox' checked readOnly />}
-								{!task.status && <input className='task-item__status' type='checkbox' readOnly checked={false} />}
-							</div>
-						</>
+						<div className='task-item' key={task.id} onClick={() => handleTaskItemClick(task.id)}>
+							<div className='task-item__id'>{task.id}</div>
+							<div className='task-item__title'>{task.title}</div>
+							{task.status && <input className='task-item__status' type='checkbox' checked readOnly />}
+							{!task.status && <input className='task-item__status' type='checkbox' readOnly checked={false} />}
+						</div>
 					);
 				})}
 			</div>

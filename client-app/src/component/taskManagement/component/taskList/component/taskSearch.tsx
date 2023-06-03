@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./taskSearchStyle.scss";
 
 interface SearchInputProps {
@@ -8,21 +8,32 @@ interface SearchInputProps {
 const TaskSearch: React.FC<SearchInputProps> = ({ onSearch }) => {
 	const [searchTerm, setSearchTerm] = useState("");
 
+	const timeoutId = useRef<number>();
+
+	useEffect(() => {
+		if (timeoutId) {
+			clearTimeout(timeoutId.current);
+		}
+
+		timeoutId.current = setTimeout(() => {
+			onSearch(searchTerm);
+			timeoutId.current = undefined;
+		}, 300); // Set the throttle delay here (e.g., 300ms)
+
+		// Cleanup the timeout when the component unmounts or when the search term changes
+		return () => {
+			if (timeoutId) {
+				clearTimeout(timeoutId.current);
+			}
+		};
+	}, [searchTerm, onSearch]);
+
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchTerm(event.target.value);
+		const newSearchTerm = event.target.value;
+		setSearchTerm(newSearchTerm);
 	};
 
-	const handleSubmit = (event: React.FormEvent) => {
-		event.preventDefault();
-		onSearch(searchTerm);
-	};
-
-	return (
-		<form onSubmit={handleSubmit} className='search-input'>
-			<input type='text' placeholder='Search...' value={searchTerm} onChange={handleChange} />
-			<button type='submit'>Search</button>
-		</form>
-	);
+	return <input type='text' placeholder='Search...' value={searchTerm} onChange={handleChange} />;
 };
 
 export default TaskSearch;
