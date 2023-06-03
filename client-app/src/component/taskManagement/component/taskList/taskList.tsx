@@ -14,6 +14,7 @@ const TaskList = (props: TaskListProps) => {
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const { existingTaskId, setExistingTaskId, setUpdateList, updateList } = props;
 	const [filter, setFilter] = useState<string>("");
+	const [selectedTaskId, setSelectedTaskId] = useState<number | undefined>(undefined);
 
 	const getAllTasks = useCallback(async () => {
 		try {
@@ -49,6 +50,7 @@ const TaskList = (props: TaskListProps) => {
 
 	const handleTaskItemClick = (id: number) => {
 		setExistingTaskId(id);
+		setSelectedTaskId(id);
 	};
 
 	const handleSearch = (searchTerm: string) => {
@@ -56,37 +58,31 @@ const TaskList = (props: TaskListProps) => {
 	};
 
 	useEffect(() => {
-		if (filter) {
-			loadFilteredTasks();
-		} else {
-			loadAllTasks();
-		}
+		if (filter) loadFilteredTasks();
+		else loadAllTasks();
 	}, [filter, loadAllTasks, loadFilteredTasks]);
 
 	useEffect(() => {
-		if (existingTaskId && !tasks.some((task) => task.id === existingTaskId)) {
+		if ((existingTaskId && !tasks.some((task) => task.id === existingTaskId)) || updateList) {
 			loadAllTasks();
 			setUpdateList(false);
 		}
-	}, [existingTaskId, setUpdateList, loadAllTasks, tasks]);
-
-	useEffect(() => {
-		if (updateList) {
-			loadAllTasks();
-			setUpdateList(false);
-		}
-	}, [updateList, setUpdateList, loadAllTasks]);
+	}, [existingTaskId, setUpdateList, loadAllTasks, tasks, updateList]);
 
 	return (
 		<div className='tasklist-section'>
 			<h1>Task List</h1>
+			<div className='search-container'>
+				<TaskSearch onSearch={handleSearch} />
+			</div>
 			<div className='tasks-wrapper'>
-				<div className='search-container'>
-					<TaskSearch onSearch={handleSearch} />
-				</div>
 				{tasks.map((task: Task) => {
 					return (
-						<div className='task-item' key={task.id} onClick={() => handleTaskItemClick(task.id)}>
+						<div
+							className={`task-item ${task.id === selectedTaskId && existingTaskId ? "task-item-selected" : ""}`}
+							key={task.id}
+							onClick={() => handleTaskItemClick(task.id)}
+						>
 							<div className='task-item__id'>{task.id}</div>
 							<div className='task-item__title'>{task.title}</div>
 							{task.status && <input className='task-item__status' type='checkbox' checked readOnly />}

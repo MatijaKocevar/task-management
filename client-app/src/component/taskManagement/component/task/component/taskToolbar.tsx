@@ -84,7 +84,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 
 	return (
 		<div className='actions'>
-			<h1 className='section__title'>Task</h1>
+			<h1 className='section__title'>{task.id == 0 ? "New Task" : "Task"}</h1>
 			<div className='action-buttons'>
 				<button className={`section__button ${task.id !== 0 ? "" : "disabled"}`} onClick={handleNewTask} disabled={task.id == 0}>
 					New task
