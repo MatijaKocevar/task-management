@@ -1,4 +1,5 @@
 import { Task } from "../../../../types/types";
+import TaskSearch from "./component/taskSearch";
 import "./taskListStyle.scss";
 import { useCallback, useEffect, useState } from "react";
 
@@ -57,18 +58,28 @@ const TaskList = (props: TaskListProps) => {
 		setExistingTaskId(id);
 	};
 
+	const handleSearch = (searchTerm: string) => {
+		// Implement your search logic here
+		// Update the tasks state based on the search term
+	};
+
 	return (
 		<div className='tasklist-section'>
 			<h1>Task List</h1>
 			<div className='tasks-wrapper'>
+				<div className='search-container'>
+					<TaskSearch onSearch={handleSearch} />
+				</div>
 				{tasks.map((task: Task) => {
 					return (
-						<div className='task-item' key={task.id} onClick={() => handleTaskItemClick(task.id)}>
-							<div className='task-item__id'>{task.id}</div>
-							<div className='task-item__title'>{task.title}</div>
-							{task.status && <input className='task-item__status' type='checkbox' checked readOnly />}
-							{!task.status && <input className='task-item__status' type='checkbox' readOnly checked={false} />}
-						</div>
+						<>
+							<div className='task-item' key={task.id} onClick={() => handleTaskItemClick(task.id)}>
+								<div className='task-item__id'>{task.id}</div>
+								<div className='task-item__title'>{task.title}</div>
+								{task.status && <input className='task-item__status' type='checkbox' checked readOnly />}
+								{!task.status && <input className='task-item__status' type='checkbox' readOnly checked={false} />}
+							</div>
+						</>
 					);
 				})}
 			</div>

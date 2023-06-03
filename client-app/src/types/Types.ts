@@ -5,3 +5,11 @@ export interface Task {
 	status: boolean;
 	createdAt: Date;
 }
+
+export const newTask: Task = {
+	id: 0,
+	title: "",
+	description: "",
+	status: false,
+	createdAt: new Date(Date.now()),
+};

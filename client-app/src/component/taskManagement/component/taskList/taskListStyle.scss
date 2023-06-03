@@ -14,6 +14,10 @@
 		width: 100%;
 		overflow: auto;
 
+		.search-container {
+			margin-bottom: 1rem;
+		}
+
 		.task-item {
 			display: flex;
 			justify-content: space-between;

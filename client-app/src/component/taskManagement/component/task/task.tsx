@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./taskStyle.scss";
 import ToggleSwitch from "../../../shared/toogleSwitch/toggleSwitch";
-import { Task } from "../../../../types/types";
+import { Task, newTask } from "../../../../types/types";
 import TaskToolbar from "./component/taskToolbar";
 
 interface TaskProps {
@@ -12,13 +12,7 @@ interface TaskProps {
 
 const TaskSection = (props: TaskProps) => {
 	const { existingTaskId, setExistingTaskId, setUpdateList } = props;
-	const [task, setTask] = useState<Task>({
-		id: 0,
-		title: "",
-		description: "",
-		status: false,
-		createdAt: new Date(Date.now()),
-	});
+	const [task, setTask] = useState<Task>(newTask);
 	const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -26,7 +20,7 @@ const TaskSection = (props: TaskProps) => {
 			try {
 				const response = await fetch(`https://localhost:44434/api/tasks/${existingTaskId}`);
 				const responseData: Task = await response.json();
-				setTask(responseData);
+				if (responseData) setTask(responseData);
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
@@ -40,12 +34,12 @@ const TaskSection = (props: TaskProps) => {
 
 	const handleOnChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTask({ ...task, title: e.target.value });
-		setHasUnsavedChanges(true);
+		if (!hasUnsavedChanges) setHasUnsavedChanges(true);
 	};
 
 	const handleOnChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setTask({ ...task, description: e.target.value });
-		setHasUnsavedChanges(true);
+		if (!hasUnsavedChanges) setHasUnsavedChanges(true);
 	};
 
 	return (

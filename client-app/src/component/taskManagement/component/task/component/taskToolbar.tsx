@@ -1,4 +1,4 @@
-import { Task } from "../../../../../types/types";
+import { Task, newTask } from "../../../../../types/types";
 
 interface TaskToolbarProps {
 	existingTaskId?: number;
@@ -14,13 +14,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 	const { existingTaskId, setExistingTaskId, setUpdateList, setTask, setHasUnsavedChanges, task, hasUnsavedChanges } = props;
 
 	const handleNewTask = () => {
-		setTask({
-			id: 0,
-			title: "",
-			description: "",
-			status: false,
-			createdAt: new Date(Date.now()),
-		});
+		setTask(newTask);
 		setExistingTaskId(undefined);
 		setHasUnsavedChanges(false);
 	};
@@ -77,13 +71,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 				body: JSON.stringify(task),
 			});
 
-			setTask({
-				id: 0,
-				title: "",
-				description: "",
-				status: false,
-				createdAt: new Date(Date.now()),
-			});
+			setTask(newTask);
 			setExistingTaskId(undefined);
 			setUpdateList(true);
 		} catch (error) {
