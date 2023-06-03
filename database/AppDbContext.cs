@@ -7,5 +7,5 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Task> Tasks { get; set; }
+    public DbSet<Task> Tasks { get; set; } = default!;
 }
