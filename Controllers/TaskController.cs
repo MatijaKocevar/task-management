@@ -92,10 +92,14 @@ namespace TaskManagement.Controllers
         [HttpGet("search")]
         public async Task<IActionResult> Search(string searchTerm)
         {
-            var tasks = new List<Task>();
-
-            tasks = await _context.Tasks
-                .Where(t => t.Description.Contains(searchTerm))
+            var tasks = await _context.Tasks
+                .Where(
+                    t =>
+                        t.Description != null
+                        && EF.Functions
+                            .Collate(t.Description, "SQL_Latin1_General_CP1_CS_AS")
+                            .StartsWith(searchTerm)
+                )
                 .ToListAsync();
 
             return Ok(tasks);
