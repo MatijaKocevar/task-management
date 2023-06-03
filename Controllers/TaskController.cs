@@ -59,7 +59,6 @@ namespace TaskManagement.Controllers
 
             task.Title = updatedTask.Title;
             task.Description = updatedTask.Description;
-            task.Status = updatedTask.Status;
             task.UpdatedAt = DateTime.Now;
 
             try
@@ -105,6 +104,22 @@ namespace TaskManagement.Controllers
                 .ToListAsync();
 
             return Ok(tasks);
+        }
+
+        [HttpPost("{id}/status")]
+        public async Task<IActionResult> UpdateTaskStatus(int id, [FromBody] bool status)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            task.Status = status;
+            await _context.SaveChangesAsync();
+
+            return Ok(task);
         }
     }
 }

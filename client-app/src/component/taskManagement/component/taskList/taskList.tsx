@@ -1,4 +1,5 @@
 import { Task } from "../../../../types/types";
+import StatusSwitch from "../../../shared/toogleSwitch/toggleSwitch";
 import TaskSearch from "./component/taskSearch";
 import "./taskListStyle.scss";
 import { useCallback, useEffect, useState } from "react";
@@ -69,6 +70,26 @@ const TaskList = (props: TaskListProps) => {
 		}
 	}, [existingTaskId, setUpdateList, loadAllTasks, tasks, updateList]);
 
+	const handleToggleStatus = async (id: number, newStatus: boolean) => {
+		try {
+			const response = await fetch(`/api/tasks/${id}/status`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(newStatus),
+			});
+
+			if (response.ok) {
+				console.log("Task status updated successfully");
+			} else {
+				// Handle the error response
+			}
+		} catch (error) {
+			console.error("Error updating task:", error);
+		}
+	};
+
 	return (
 		<div className='tasklist-section'>
 			<h1>Task List</h1>
@@ -85,8 +106,14 @@ const TaskList = (props: TaskListProps) => {
 						>
 							<div className='task-item__id'>{task.id}</div>
 							<div className='task-item__title'>{task.title}</div>
-							{task.status && <input className='task-item__status' type='checkbox' checked readOnly />}
-							{!task.status && <input className='task-item__status' type='checkbox' readOnly checked={false} />}
+							<StatusSwitch
+								title='Status'
+								status={task.status}
+								taskId={task.id}
+								onToggle={(newStatus) => {
+									handleToggleStatus(task.id, newStatus);
+								}}
+							/>
 						</div>
 					);
 				})}

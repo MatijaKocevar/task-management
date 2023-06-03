@@ -70,7 +70,6 @@ const TaskSection = (props: TaskProps) => {
 						<div className='task-item__status-title-col'>
 							<input type='text' placeholder='Task title...' className='task-item__title' value={task.title} onChange={handleOnChangeTitle} />
 							<div className='task-item__id'>id: {taskId == 0 ? "" : taskId}</div>
-							<ToggleSwitch title='Status' status={task.status} setTask={setTask} setHasUnsavedChanges={setHasUnsavedChanges} />
 						</div>
 					</div>
 					<div className='task-item__description'>
