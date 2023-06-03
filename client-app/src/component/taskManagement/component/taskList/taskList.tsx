@@ -51,7 +51,7 @@ const TaskList = (props: TaskListProps) => {
 		setExistingTaskId(id);
 	};
 
-	const handleSearch = async (searchTerm: string) => {
+	const handleSearch = (searchTerm: string) => {
 		setFilter(searchTerm);
 	};
 

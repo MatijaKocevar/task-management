@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./taskStyle.scss";
 import ToggleSwitch from "../../../shared/toogleSwitch/toggleSwitch";
 import { Task, newTask } from "../../../../types/types";
@@ -14,6 +14,7 @@ const TaskSection = (props: TaskProps) => {
 	const { existingTaskId, setExistingTaskId, setUpdateList } = props;
 	const [task, setTask] = useState<Task>(newTask);
 	const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
+	const [taskId, setTaskId] = useState<number>(0);
 
 	useEffect(() => {
 		const fetchTask = async () => {
@@ -31,6 +32,13 @@ const TaskSection = (props: TaskProps) => {
 			setHasUnsavedChanges(false);
 		}
 	}, [existingTaskId]);
+
+	useEffect(() => {
+		if (taskId && taskId !== task.id) {
+			setTask({ ...task, id: taskId });
+			setHasUnsavedChanges(false);
+		}
+	}, [taskId, task]);
 
 	const handleOnChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTask({ ...task, title: e.target.value });
@@ -52,6 +60,7 @@ const TaskSection = (props: TaskProps) => {
 				setUpdateList={setUpdateList}
 				task={task}
 				existingTaskId={existingTaskId}
+				setTaskId={setTaskId}
 			/>
 			{task && (
 				<div className='task-item'>

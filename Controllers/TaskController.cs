@@ -65,8 +65,6 @@ namespace TaskManagement.Controllers
             }
             catch (DbUpdateException)
             {
-                // Handle the exception if the update fails
-                // You can return an appropriate error response or handle it as per your requirements
                 return StatusCode(500, "Failed to update the task.");
             }
 

@@ -8,10 +8,11 @@ interface TaskToolbarProps {
 	hasUnsavedChanges: boolean;
 	setHasUnsavedChanges: React.Dispatch<React.SetStateAction<boolean>>;
 	task: Task;
+	setTaskId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const TaskToolbar = (props: TaskToolbarProps) => {
-	const { existingTaskId, setExistingTaskId, setUpdateList, setTask, setHasUnsavedChanges, task, hasUnsavedChanges } = props;
+	const { existingTaskId, setExistingTaskId, setUpdateList, setTask, setHasUnsavedChanges, task, hasUnsavedChanges, setTaskId } = props;
 
 	const handleNewTask = () => {
 		setTask(newTask);
@@ -30,7 +31,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 					body: JSON.stringify(task),
 				});
 				const responseData: Task = await response.json();
-				setExistingTaskId(responseData.id);
+				setTaskId(responseData.id);
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}
