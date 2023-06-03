@@ -1,4 +1,5 @@
 import { Task, newTask } from "../../../../../types/types";
+import "./taskToolbarStyle.scss";
 
 interface TaskToolbarProps {
 	existingTaskId?: number;
