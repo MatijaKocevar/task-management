@@ -4,5 +4,6 @@ public class Task
     public string? Title { get; set; }
     public string? Description { get; set; }
     public bool Status { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime? CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }

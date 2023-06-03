@@ -4,6 +4,7 @@ export interface Task {
 	description: string;
 	status: boolean;
 	createdAt: Date;
+	updatedAt: Date;
 }
 
 export const newTask: Task = {
@@ -12,4 +13,5 @@ export const newTask: Task = {
 	description: "",
 	status: false,
 	createdAt: new Date(Date.now()),
+	updatedAt: new Date(Date.now()),
 };

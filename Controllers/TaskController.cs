@@ -18,7 +18,7 @@ namespace TaskManagement.Controllers
         public async Task<ActionResult<IEnumerable<Task>>> GetTasks()
         {
             var tasks = await _context.Tasks
-                .OrderByDescending(task => task.CreatedAt)
+                .OrderByDescending(task => task.UpdatedAt)
                 .ToListAsync();
             return Ok(tasks);
         }
@@ -26,6 +26,9 @@ namespace TaskManagement.Controllers
         [HttpPost]
         public async Task<ActionResult<Task>> AddTask(Task task)
         {
+            task.CreatedAt = DateTime.Now;
+            task.UpdatedAt = DateTime.Now;
+
             _context.Tasks.Add(task);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetTask), new { id = task.Id }, task);
@@ -57,6 +60,7 @@ namespace TaskManagement.Controllers
             task.Title = updatedTask.Title;
             task.Description = updatedTask.Description;
             task.Status = updatedTask.Status;
+            task.UpdatedAt = DateTime.Now;
 
             try
             {
