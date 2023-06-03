@@ -88,5 +88,17 @@ namespace TaskManagement.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            var tasks = new List<Task>();
+
+            tasks = await _context.Tasks
+                .Where(t => t.Description.Contains(searchTerm))
+                .ToListAsync();
+
+            return Ok(tasks);
+        }
     }
 }

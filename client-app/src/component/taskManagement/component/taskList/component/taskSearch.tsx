@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./taskSearchStyle.scss";
 
 interface SearchInputProps {
@@ -18,9 +18,8 @@ const TaskSearch: React.FC<SearchInputProps> = ({ onSearch }) => {
 		timeoutId.current = setTimeout(() => {
 			onSearch(searchTerm);
 			timeoutId.current = undefined;
-		}, 300); // Set the throttle delay here (e.g., 300ms)
+		}, 500);
 
-		// Cleanup the timeout when the component unmounts or when the search term changes
 		return () => {
 			if (timeoutId) {
 				clearTimeout(timeoutId.current);
