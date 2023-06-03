@@ -9,7 +9,7 @@ interface TaskListProps {
 	updateList: boolean;
 }
 
-export const TaskList = (props: TaskListProps) => {
+const TaskList = (props: TaskListProps) => {
 	const [tasks, setTasks] = useState<Task[]>([]);
 	const { existingTaskId, setExistingTaskId, setUpdateList, updateList } = props;
 
@@ -75,3 +75,5 @@ export const TaskList = (props: TaskListProps) => {
 		</div>
 	);
 };
+
+export default TaskList;

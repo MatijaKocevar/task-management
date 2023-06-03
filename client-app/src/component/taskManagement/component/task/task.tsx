@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./taskStyle.scss";
 import ToggleSwitch from "../../../shared/toogleSwitch/toggleSwitch";
 import { Task } from "../../../../types/types";
+import TaskToolbar from "./component/taskToolbar";
 
 interface TaskProps {
 	existingTaskId?: number;
@@ -9,14 +10,14 @@ interface TaskProps {
 	setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const TaskSection = (props: TaskProps) => {
+const TaskSection = (props: TaskProps) => {
+	const { existingTaskId, setExistingTaskId, setUpdateList } = props;
 	const [task, setTask] = useState<Task>({
 		id: 0,
 		title: "",
 		description: "",
 		status: false,
 	});
-	const { existingTaskId, setExistingTaskId, setUpdateList } = props;
 	const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -36,82 +37,6 @@ export const TaskSection = (props: TaskProps) => {
 		}
 	}, [existingTaskId]);
 
-	const handleNewTask = () => {
-		setTask({
-			id: 0,
-			title: "",
-			description: "",
-			status: false,
-		});
-		setExistingTaskId(undefined);
-		setHasUnsavedChanges(false);
-	};
-
-	const handleSaveChanges = async () => {
-		const saveTask = async () => {
-			try {
-				const response = await fetch(`https://localhost:44434/api/tasks`, {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(task),
-				});
-				const responseData: Task = await response.json();
-				setExistingTaskId(responseData.id);
-			} catch (error) {
-				console.error("Error fetching data:", error);
-			}
-		};
-
-		const updateTask = async () => {
-			try {
-				await fetch(`https://localhost:44434/api/tasks/${task.id}`, {
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(task),
-				});
-			} catch (error) {
-				console.error("Error fetching data:", error);
-			}
-		};
-
-		if (task.id === 0) {
-			await saveTask();
-			setUpdateList(true);
-			setHasUnsavedChanges(false);
-		} else {
-			await updateTask();
-			setUpdateList(true);
-			setHasUnsavedChanges(false);
-		}
-	};
-
-	const handleDeleteTask = async () => {
-		try {
-			await fetch(`https://localhost:44434/api/tasks/${task.id}`, {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(task),
-			});
-
-			setTask({
-				id: 0,
-				title: "",
-				description: "",
-				status: false,
-			});
-			setExistingTaskId(undefined);
-			setUpdateList(true);
-		} catch (error) {
-			console.error("Error fetching data:", error);
-		}
-	};
-
 	const handleOnChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTask({ ...task, title: e.target.value });
 		setHasUnsavedChanges(true);
@@ -124,20 +49,15 @@ export const TaskSection = (props: TaskProps) => {
 
 	return (
 		<div className='task-section'>
-			<div className='actions'>
-				<h1 className='section__title'>Task</h1>
-				<div className='action-buttons'>
-					<button className={`section__button ${existingTaskId ? "" : "disabled"}`} onClick={handleNewTask} disabled={!existingTaskId}>
-						New task
-					</button>
-					<button className={`section__button ${hasUnsavedChanges ? "" : "disabled"}`} onClick={handleSaveChanges} disabled={!hasUnsavedChanges}>
-						Save changes
-					</button>
-					<button className={`section__button ${existingTaskId ? "" : "disabled"}`} onClick={handleDeleteTask} disabled={!existingTaskId}>
-						Delete task
-					</button>
-				</div>
-			</div>
+			<TaskToolbar
+				hasUnsavedChanges={hasUnsavedChanges}
+				setExistingTaskId={setExistingTaskId}
+				setHasUnsavedChanges={setHasUnsavedChanges}
+				setTask={setTask}
+				setUpdateList={setUpdateList}
+				task={task}
+				existingTaskId={existingTaskId}
+			/>
 			{task && (
 				<div className='task-item'>
 					<div className='task-item__status-row'>
@@ -155,3 +75,5 @@ export const TaskSection = (props: TaskProps) => {
 		</div>
 	);
 };
+
+export default TaskSection;
