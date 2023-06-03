@@ -29,7 +29,8 @@ const TaskList = (props: TaskListProps) => {
 
 	const getFilteredTasks = useCallback(async () => {
 		try {
-			const response = await fetch(`https://localhost:44434/api/tasks/search?searchTerm=${filter}`);
+			const encodedSearchTerm = encodeURIComponent(filter);
+			const response = await fetch(`https://localhost:44434/api/tasks/search?searchTerm=${encodedSearchTerm}`);
 			const responseData: Task[] = await response.json();
 			return await responseData;
 		} catch (error) {
