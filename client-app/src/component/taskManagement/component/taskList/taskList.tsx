@@ -44,7 +44,7 @@ export const TaskList = (props: TaskListProps) => {
 			loadAllTasks();
 			setUpdateList(false);
 		}
-	}, [existingTaskId, setUpdateList, loadAllTasks]);
+	}, [existingTaskId, setUpdateList, loadAllTasks, tasks]);
 
 	useEffect(() => {
 		if (updateList) {

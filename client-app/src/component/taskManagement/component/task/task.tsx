@@ -123,7 +123,7 @@ export const TaskSection = (props: TaskProps) => {
 			<div className='actions'>
 				<h1 className='section__title'>Task</h1>
 				<div className='action-buttons'>
-					<button className='section__button' onClick={handleNewTask}>
+					<button className={`section__button ${existingTaskId ? "" : "disabled"}`} onClick={handleNewTask} disabled={!existingTaskId}>
 						New task
 					</button>
 					<button className={`section__button ${hasUnsavedChanges ? "" : "disabled"}`} onClick={handleSaveChanges} disabled={!hasUnsavedChanges}>
