@@ -44,6 +44,7 @@ export const TaskSection = (props: TaskProps) => {
 			status: false,
 		});
 		setExistingTaskId(undefined);
+		setHasUnsavedChanges(false);
 	};
 
 	const handleSaveChanges = async () => {
