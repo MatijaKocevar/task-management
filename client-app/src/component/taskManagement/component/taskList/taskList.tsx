@@ -93,8 +93,6 @@ const TaskList = (props: TaskListProps) => {
 
 					return [...prevTasks];
 				});
-			} else {
-				// Handle the error response
 			}
 		} catch (error) {
 			console.error("Error updating task:", error);

@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./app.scss";
 import TaskManagement from "./component/taskManagement/taskManagement";
 
 function App() {

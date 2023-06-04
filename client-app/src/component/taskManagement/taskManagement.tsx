@@ -6,7 +6,6 @@ import TaskSection from "./component/task/task";
 const TaskManagement = () => {
 	const [existingTaskId, setExsitingTaskId] = useState<number>();
 	const [updateList, setUpdateList] = useState<boolean>(false);
-	const [updateTask, setUpdateTask] = useState<boolean>(false);
 
 	return (
 		<>

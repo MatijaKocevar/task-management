@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./taskStyle.scss";
-import ToggleSwitch from "../../../shared/toogleSwitch/toggleSwitch";
 import { Task, newTask } from "../../../../types/types";
 import TaskToolbar from "./component/taskToolbar";
 
