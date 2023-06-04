@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PublishRelease>true</PublishRelease>
-    <LanuchBrowser>false</LanuchBrowser>
+    <LanuchBrowser>disable</LanuchBrowser>
   </PropertyGroup>
 
   <ItemGroup>
