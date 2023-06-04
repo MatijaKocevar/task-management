@@ -61,10 +61,14 @@ const TaskList = (props: TaskListProps) => {
 	const handleSearch = useCallback(
 		(searchTerm: string) => {
 			setFilter(searchTerm);
-			setUpdateList(true);
 		},
-		[setFilter, setUpdateList]
+		[setFilter]
 	);
+
+	useEffect(() => {
+		if (filter !== "") loadFilteredTasks();
+		else loadAllTasks();
+	}, [filter, loadAllTasks, loadFilteredTasks]);
 
 	useEffect(() => {
 		// if existingTaskId is undefined, and the current task is not in the list, then update the list
@@ -77,7 +81,7 @@ const TaskList = (props: TaskListProps) => {
 		}
 	}, [existingTaskId, setUpdateList, loadAllTasks, tasks, updateList, filter, loadFilteredTasks]);
 
-	const handleToggleStatus = async (id: number, newStatus: boolean) => {
+	const handleToggleStatus = useCallback(async (id: number, newStatus: boolean) => {
 		try {
 			const response = await fetch(`/api/tasks/${id}/status`, {
 				method: "POST",
@@ -101,7 +105,11 @@ const TaskList = (props: TaskListProps) => {
 		} catch (error) {
 			console.error("Error updating task:", error);
 		}
-	};
+	}, []);
+
+	useEffect(() => {
+		console.log("TaskList rendered");
+	}, [tasks]);
 
 	return (
 		<div className='tasklist-section'>
