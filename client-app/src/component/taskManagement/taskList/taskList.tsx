@@ -1,6 +1,6 @@
-import { Task } from "../../../../types/types";
-import StatusSwitch from "../../../shared/toogleSwitch/toggleSwitch";
-import TaskSearch from "./component/taskSearch";
+import { Task } from "../../../types/types";
+import StatusSwitch from "../../shared/toogleSwitch/toggleSwitch";
+import TaskSearch from "./taskSearch/taskSearch";
 import "./taskListStyle.scss";
 import { useCallback, useEffect, useState } from "react";
 

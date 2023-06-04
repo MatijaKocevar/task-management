@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./taskManagementStyle.scss";
-import TaskList from "./component/taskList/taskList";
-import TaskSection from "./component/task/task";
+import TaskList from "./taskList/taskList";
+import TaskSection from "./task/task";
 
 const TaskManagement = () => {
 	const [existingTaskId, setExsitingTaskId] = useState<number>();

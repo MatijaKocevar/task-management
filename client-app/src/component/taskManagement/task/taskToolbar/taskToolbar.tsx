@@ -1,4 +1,4 @@
-import { Task, newTask } from "../../../../../types/types";
+import { Task, newTask } from "../../../../types/types";
 import "./taskToolbarStyle.scss";
 
 interface TaskToolbarProps {

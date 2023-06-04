@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./taskStyle.scss";
-import { Task, newTask } from "../../../../types/types";
-import TaskToolbar from "./component/taskToolbar";
+import { Task, newTask } from "../../../types/types";
+import TaskToolbar from "./taskToolbar/taskToolbar";
 
 interface TaskProps {
 	existingTaskId?: number;
