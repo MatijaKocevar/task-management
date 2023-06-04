@@ -65,11 +65,11 @@ const TaskList = (props: TaskListProps) => {
 	}, [filter, loadAllTasks, loadFilteredTasks]);
 
 	useEffect(() => {
-		if ((existingTaskId && !tasks.some((task) => task.id === existingTaskId) && updateList) || updateList) {
+		if ((existingTaskId && !tasks.some((task) => task.id === existingTaskId) && updateList) || (updateList && filter != "")) {
 			loadAllTasks();
 			setUpdateList(false);
 		}
-	}, [existingTaskId, setUpdateList, loadAllTasks, tasks, updateList]);
+	}, [existingTaskId, setUpdateList, loadAllTasks, tasks, updateList, filter]);
 
 	const handleToggleStatus = async (id: number, newStatus: boolean) => {
 		try {
