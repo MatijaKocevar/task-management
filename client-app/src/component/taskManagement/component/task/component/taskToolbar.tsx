@@ -24,7 +24,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 	const handleSaveChanges = async () => {
 		const saveTask = async () => {
 			try {
-				const response = await fetch(`https://localhost:44434/api/tasks`, {
+				const response = await fetch(`/api/tasks`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -40,7 +40,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 
 		const updateTask = async () => {
 			try {
-				await fetch(`https://localhost:44434/api/tasks/${task.id}`, {
+				await fetch(`/api/tasks/${task.id}`, {
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
@@ -65,7 +65,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 
 	const handleDeleteTask = async () => {
 		try {
-			await fetch(`https://localhost:44434/api/tasks/${task.id}`, {
+			await fetch(`/api/tasks/${task.id}`, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",

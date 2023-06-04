@@ -19,7 +19,7 @@ const TaskList = (props: TaskListProps) => {
 
 	const getAllTasks = useCallback(async () => {
 		try {
-			const response = await fetch(`https://localhost:44434/api/tasks`);
+			const response = await fetch(`/api/tasks`);
 			const responseData: Task[] = await response.json();
 			return await responseData;
 		} catch (error) {
@@ -30,7 +30,7 @@ const TaskList = (props: TaskListProps) => {
 	const getFilteredTasks = useCallback(async () => {
 		try {
 			const encodedSearchTerm = encodeURIComponent(filter);
-			const response = await fetch(`https://localhost:44434/api/tasks/search?searchTerm=${encodedSearchTerm}`);
+			const response = await fetch(`/api/tasks/search?searchTerm=${encodedSearchTerm}`);
 			const responseData: Task[] = await response.json();
 			return await responseData;
 		} catch (error) {

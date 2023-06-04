@@ -8,7 +8,7 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>client-app\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <SpaProxyServerUrl>https://localhost:44434</SpaProxyServerUrl>
+    <SpaProxyServerUrl>http://localhost:44434</SpaProxyServerUrl>
     <SpaProxyLaunchCommand>npm run start</SpaProxyLaunchCommand>
     <RootNamespace>task_management</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>

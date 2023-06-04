@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000' # Change the port if needed
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./client-app
+      dockerfile: Dockerfile
+    ports:
+      - '80:80' # Change the port if needed
+
+  database:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=ThisIsMyPassword123
+    ports:
+      - '1433:1433' # Change the port if needed
+    volumes:
+      - dbdata:/var/opt/mssql
+
+volumes:
+  dbdata:

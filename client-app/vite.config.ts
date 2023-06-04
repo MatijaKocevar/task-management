@@ -21,13 +21,14 @@ export default defineConfig({
 	server: {
 		port: 44434,
 		strictPort: true,
-		https: true,
+		https: false,
+		host: true,
 		proxy: {
 			"/api": {
 				target: "http://localhost:5270",
 				changeOrigin: true,
-				secure: false,
-				ws: true,
+				secure: true,
+				// ws: true,
 				rewrite: (path) => path.replace(/^\/api/, "/api"),
 			},
 		},

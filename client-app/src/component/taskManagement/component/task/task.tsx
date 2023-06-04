@@ -18,7 +18,7 @@ const TaskSection = (props: TaskProps) => {
 	useEffect(() => {
 		const fetchTask = async () => {
 			try {
-				const response = await fetch(`https://localhost:44434/api/tasks/${existingTaskId}`);
+				const response = await fetch(`/api/tasks/${existingTaskId}`);
 				const responseData: Task = await response.json();
 				if (responseData) {
 					setTask(responseData);
