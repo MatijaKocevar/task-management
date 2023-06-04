@@ -50,21 +50,25 @@ const TaskList = (props: TaskListProps) => {
 		if (tasks) setTasks(tasks);
 	}, [getFilteredTasks]);
 
-	const handleTaskItemClick = (id: number) => {
-		setExistingTaskId(id);
-		setSelectedTaskId(id);
-	};
+	const handleTaskItemClick = useCallback(
+		(id: number) => {
+			setExistingTaskId(id);
+			setSelectedTaskId(id);
+		},
+		[setExistingTaskId, setSelectedTaskId]
+	);
 
-	const handleSearch = (searchTerm: string) => {
-		setFilter(searchTerm);
-	};
+	const handleSearch = useCallback(
+		(searchTerm: string) => {
+			setFilter(searchTerm);
+			setUpdateList(true);
+		},
+		[setFilter, setUpdateList]
+	);
 
 	useEffect(() => {
-		if (filter !== "") loadFilteredTasks();
-		else loadAllTasks();
-	}, [filter, loadAllTasks, loadFilteredTasks]);
-
-	useEffect(() => {
+		// if existingTaskId is undefined, and the current task is not in the list, then update the list
+		// or update the list if just the updateList is true
 		if ((existingTaskId && !tasks.some((task) => task.id === existingTaskId) && updateList) || updateList) {
 			if (filter === "") loadAllTasks();
 			else loadFilteredTasks();

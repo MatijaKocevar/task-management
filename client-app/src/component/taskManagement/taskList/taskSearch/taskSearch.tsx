@@ -15,6 +15,7 @@ const TaskSearch: React.FC<SearchInputProps> = ({ onSearch }) => {
 			clearTimeout(timeoutId.current);
 		}
 
+		//throttle the search
 		timeoutId.current = setTimeout(() => {
 			onSearch(searchTerm);
 			timeoutId.current = undefined;
