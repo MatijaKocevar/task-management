@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./toggleSwitch.scss";
 import checkSvg from "./check.svg";
 import inProgressSvg from "./inProgress.svg";
@@ -17,11 +17,11 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ title, status, onToggle, ta
 		setIsChecked(status);
 	}, [status]);
 
-	const handleChange = () => {
+	const handleChange = useCallback(() => {
 		const newStatus = !isChecked;
 		setIsChecked(newStatus);
 		onToggle(newStatus);
-	};
+	}, [isChecked, onToggle]);
 
 	return (
 		<div className={`toggle-switch ${isChecked ? "toggle-switch-checked" : ""}`} title={title ?? ""}>

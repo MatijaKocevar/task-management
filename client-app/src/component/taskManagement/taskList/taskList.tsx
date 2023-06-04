@@ -72,6 +72,7 @@ const TaskList = (props: TaskListProps) => {
 		if ((existingTaskId && !tasks.some((task) => task.id === existingTaskId) && updateList) || updateList) {
 			if (filter === "") loadAllTasks();
 			else loadFilteredTasks();
+
 			setUpdateList(false);
 		}
 	}, [existingTaskId, setUpdateList, loadAllTasks, tasks, updateList, filter, loadFilteredTasks]);

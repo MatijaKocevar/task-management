@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "./taskSearchStyle.scss";
 
 interface SearchInputProps {
@@ -11,9 +11,7 @@ const TaskSearch: React.FC<SearchInputProps> = ({ onSearch }) => {
 	const timeoutId = useRef<number>();
 
 	useEffect(() => {
-		if (timeoutId) {
-			clearTimeout(timeoutId.current);
-		}
+		if (timeoutId) clearTimeout(timeoutId.current);
 
 		//throttle the search
 		timeoutId.current = setTimeout(() => {
@@ -22,16 +20,14 @@ const TaskSearch: React.FC<SearchInputProps> = ({ onSearch }) => {
 		}, 500);
 
 		return () => {
-			if (timeoutId) {
-				clearTimeout(timeoutId.current);
-			}
+			if (timeoutId) clearTimeout(timeoutId.current);
 		};
 	}, [searchTerm, onSearch]);
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
 		const newSearchTerm = event.target.value;
 		setSearchTerm(newSearchTerm);
-	};
+	}, []);
 
 	return <input type='text' placeholder='Search...' value={searchTerm} onChange={handleChange} />;
 };

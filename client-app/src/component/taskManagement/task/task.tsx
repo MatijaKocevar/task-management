@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./taskStyle.scss";
 import { Task, newTask } from "../../../types/types";
 import TaskToolbar from "./taskToolbar/taskToolbar";
@@ -42,15 +42,21 @@ const TaskSection = (props: TaskProps) => {
 		}
 	}, [taskId, task]);
 
-	const handleOnChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setTask({ ...task, title: e.target.value });
-		if (!hasUnsavedChanges) setHasUnsavedChanges(true);
-	};
+	const handleOnChangeTitle = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			setTask({ ...task, title: e.target.value });
+			if (!hasUnsavedChanges) setHasUnsavedChanges(true);
+		},
+		[task, hasUnsavedChanges]
+	);
 
-	const handleOnChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setTask({ ...task, description: e.target.value });
-		if (!hasUnsavedChanges) setHasUnsavedChanges(true);
-	};
+	const handleOnChangeDescription = useCallback(
+		(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+			setTask({ ...task, description: e.target.value });
+			if (!hasUnsavedChanges) setHasUnsavedChanges(true);
+		},
+		[task, hasUnsavedChanges]
+	);
 
 	return (
 		<div className='task-section'>

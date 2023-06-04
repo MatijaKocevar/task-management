@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { Task, newTask } from "../../../../types/types";
 import "./taskToolbarStyle.scss";
 
@@ -14,14 +15,14 @@ interface TaskToolbarProps {
 const TaskToolbar = (props: TaskToolbarProps) => {
 	const { setExistingTaskId, setUpdateList, setTask, setHasUnsavedChanges, task, hasUnsavedChanges, setTaskId } = props;
 
-	const handleNewTask = () => {
+	const handleNewTask = useCallback(() => {
 		setTaskId(newTask.id);
 		setTask(newTask);
 		setExistingTaskId(undefined);
 		setHasUnsavedChanges(false);
-	};
+	}, [setTask, setExistingTaskId, setHasUnsavedChanges, setTaskId]);
 
-	const handleSaveChanges = async () => {
+	const handleSaveChanges = useCallback(async () => {
 		const saveTask = async () => {
 			try {
 				const response = await fetch(`/api/tasks`, {
@@ -61,9 +62,9 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 			setUpdateList(true);
 			setHasUnsavedChanges(false);
 		}
-	};
+	}, [setUpdateList, task, setHasUnsavedChanges, setTaskId]);
 
-	const handleDeleteTask = async () => {
+	const handleDeleteTask = useCallback(async () => {
 		try {
 			await fetch(`/api/tasks/${task.id}`, {
 				method: "DELETE",
@@ -80,7 +81,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
-	};
+	}, [setTask, setExistingTaskId, setUpdateList, task, setTaskId]);
 
 	return (
 		<div className='actions'>
