@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '5000:5000' # Change the port if needed
+      - '5000:80' # Change the port if needed
     depends_on:
       - database
 
@@ -16,6 +16,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - '80:80' # Change the port if needed
+    depends_on:
+      - backend
 
   database:
     image: mcr.microsoft.com/mssql/server:2019-latest

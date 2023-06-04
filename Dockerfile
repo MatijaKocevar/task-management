@@ -1,27 +1,21 @@
 # Build stage
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /app
-
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get install -y nodejs
-
+WORKDIR /source
 
 # Copy csproj and restore dependencies
-COPY *.csproj ./
-RUN dotnet restore
+COPY *.csproj .
+RUN dotnet restore --use-current-runtime 
 
 # Copy the remaining source code
-COPY . ./
+COPY . .
 
 # Build the application
-RUN dotnet publish -c Release -o out
+RUN dotnet publish --use-current-runtime --self-contained false -o /app
 
 # Runtime stage
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
-COPY --from=build /app/out .
-
+COPY --from=build /app .
 
 # Set the entry point
 ENTRYPOINT ["dotnet", "task-management.dll"]
-EXPOSE 5000
