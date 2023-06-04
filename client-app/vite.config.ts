@@ -19,13 +19,13 @@ export default defineConfig({
 		fullReloadAlways,
 	],
 	server: {
-		port: 44434,
+		port: 5001,
 		strictPort: true,
 		https: false,
 		host: true,
 		proxy: {
 			"/api": {
-				target: "http://localhost:5270",
+				target: "http://localhost:5000",
 				changeOrigin: true,
 				secure: true,
 				// ws: true,
