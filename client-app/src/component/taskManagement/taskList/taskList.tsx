@@ -88,8 +88,6 @@ const TaskList = (props: TaskListProps) => {
 			});
 
 			if (response.ok) {
-				console.log("Task status updated successfully");
-
 				setTasks((prevTasks) => {
 					const prevTask = prevTasks.find((task) => task.id === id);
 
