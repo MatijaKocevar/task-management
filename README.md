@@ -79,7 +79,9 @@ The development server will automatically reload if there are any code changes.
    npm start
 ```
 
-The frontend server will automatically reload if there are any code changes. 3. Access the application:
+The frontend server will automatically reload if there are any code changes.
+
+3. Access the application:
 
 - Open your web browser and navigate to [https://localhost:5001](https://localhost:5001)
 
