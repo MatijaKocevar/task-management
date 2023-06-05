@@ -16,6 +16,7 @@ const TaskSection = (props: TaskProps) => {
 	const [taskId, setTaskId] = useState<number>(0);
 
 	useEffect(() => {
+		// Fetch the task data when existingTaskId changes
 		const fetchTask = async () => {
 			try {
 				const response = await fetch(`/api/tasks/${existingTaskId}`);
@@ -36,6 +37,7 @@ const TaskSection = (props: TaskProps) => {
 	}, [existingTaskId]);
 
 	useEffect(() => {
+		// Update the task ID in the state when taskId changes and the task ID is not the same as current task ID
 		if (taskId && taskId !== task.id) {
 			setTask({ ...task, id: taskId });
 			setHasUnsavedChanges(false);
@@ -44,6 +46,7 @@ const TaskSection = (props: TaskProps) => {
 
 	const handleOnChangeTitle = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => {
+			// Update the task's title and set hasUnsavedChanges to true if there are no unsaved changes already
 			setTask({ ...task, title: e.target.value });
 			if (!hasUnsavedChanges) setHasUnsavedChanges(true);
 		},
@@ -52,6 +55,7 @@ const TaskSection = (props: TaskProps) => {
 
 	const handleOnChangeDescription = useCallback(
 		(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+			// Update the task's description and set hasUnsavedChanges to true if there are no unsaved changes already
 			setTask({ ...task, description: e.target.value });
 			if (!hasUnsavedChanges) setHasUnsavedChanges(true);
 		},
@@ -74,7 +78,7 @@ const TaskSection = (props: TaskProps) => {
 					<div className='task-item__status-row'>
 						<div className='task-item__status-title-col'>
 							<input type='text' placeholder='Task title...' className='task-item__title' value={task.title} onChange={handleOnChangeTitle} />
-							<div className='task-item__id'>id: {taskId == 0 ? "" : taskId}</div>
+							<div className='task-item__id'>id: {taskId === 0 ? "" : taskId}</div>
 						</div>
 					</div>
 					<div className='task-item__description'>

@@ -14,10 +14,12 @@ const ToggleSwitch: React.FC<ToggleSwitchProps> = ({ title, status, onToggle, ta
 	const [isChecked, setIsChecked] = useState<boolean>(status);
 
 	useEffect(() => {
+		// Update the state when the status prop changes
 		setIsChecked(status);
 	}, [status]);
 
 	const handleChange = useCallback(() => {
+		// Toggle the switch and invoke the onToggle callback
 		const newStatus = !isChecked;
 		setIsChecked(newStatus);
 		onToggle(newStatus);

@@ -16,6 +16,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 	const { setExistingTaskId, setUpdateList, setTask, setHasUnsavedChanges, task, hasUnsavedChanges, setTaskId } = props;
 
 	const handleNewTask = useCallback(() => {
+		// Create a new task and reset the state
 		setTaskId(newTask.id);
 		setTask(newTask);
 		setExistingTaskId(undefined);
@@ -23,6 +24,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 	}, [setTask, setExistingTaskId, setHasUnsavedChanges, setTaskId]);
 
 	const handleSaveChanges = useCallback(async () => {
+		// Save or update the task based on if it has an ID or not
 		const saveTask = async () => {
 			try {
 				const response = await fetch(`/api/tasks`, {
@@ -65,6 +67,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 	}, [setUpdateList, task, setHasUnsavedChanges, setTaskId]);
 
 	const handleDeleteTask = useCallback(async () => {
+		// Delete the task
 		try {
 			await fetch(`/api/tasks/${task.id}`, {
 				method: "DELETE",
@@ -74,6 +77,7 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 				body: JSON.stringify(task),
 			});
 
+			// Reset the state to a new task
 			setTask(newTask);
 			setTaskId(newTask.id);
 			setExistingTaskId(undefined);
@@ -85,15 +89,15 @@ const TaskToolbar = (props: TaskToolbarProps) => {
 
 	return (
 		<div className='actions'>
-			<h1 className='section__title'>{task.id == 0 ? "New Task" : "Task"}</h1>
+			<h1 className='section__title'>{task.id === 0 ? "New Task" : "Task"}</h1>
 			<div className='action-buttons'>
-				<button className={`section__button ${task.id !== 0 ? "" : "disabled"}`} onClick={handleNewTask} disabled={task.id == 0}>
+				<button className={`section__button ${task.id !== 0 ? "" : "disabled"}`} onClick={handleNewTask} disabled={task.id === 0}>
 					New task
 				</button>
 				<button className={`section__button ${hasUnsavedChanges ? "" : "disabled"}`} onClick={handleSaveChanges} disabled={!hasUnsavedChanges}>
 					Save changes
 				</button>
-				<button className={`section__button ${task.id !== 0 ? "" : "disabled"}`} onClick={handleDeleteTask} disabled={task.id == 0}>
+				<button className={`section__button ${task.id !== 0 ? "" : "disabled"}`} onClick={handleDeleteTask} disabled={task.id === 0}>
 					Delete task
 				</button>
 			</div>

@@ -11,16 +11,17 @@ const TaskSearch: React.FC<SearchInputProps> = ({ onSearch }) => {
 	const timeoutId = useRef<number>();
 
 	useEffect(() => {
-		if (timeoutId) clearTimeout(timeoutId.current);
+		if (timeoutId.current) clearTimeout(timeoutId.current);
 
-		//throttle the search
+		// Throttle the search to avoid excessive API requests
 		timeoutId.current = setTimeout(() => {
 			onSearch(searchTerm);
 			timeoutId.current = undefined;
 		}, 500);
 
+		// Cleanup function to clear the timeout when component unmounts or searchTerm changes
 		return () => {
-			if (timeoutId) clearTimeout(timeoutId.current);
+			if (timeoutId.current) clearTimeout(timeoutId.current);
 		};
 	}, [searchTerm, onSearch]);
 
