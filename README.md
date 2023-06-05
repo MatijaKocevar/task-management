@@ -1,95 +1,104 @@
-Task Management App
+# Task Management App
 
 This repository contains a Task Management App built using .NET 7 and Vite React TypeScript. The application allows users to manage and track their tasks efficiently.
-Table of Contents
 
-    Getting Started
-        Prerequisites
-        Installation
-        Building the Project
-        Usage
-        Running with Docker
-    Contributing
-    License
+## Table of Contents
 
-Getting Started
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Building the Project](#building-the-project)
+  - [Usage](#usage)
+  - [Running with Docker](#running-with-docker)
+
+## Getting Started
 
 To run the Task Management App on your local machine, follow the steps below:
-Prerequisites
+
+### Prerequisites
 
 Before you begin, ensure that the following dependencies are installed:
 
-    .NET 7 SDK
-    Node.js
-    npm (Node Package Manager)
-    Docker
-    Docker Compose
+- .NET 7 SDK
+- Node.js
+- npm (Node Package Manager)
+- Docker
+- Docker Compose
 
-Installation
+### Installation
 
-    Clone the repository:
+1. Clone the repository:
 
-    bash
+```bash
+   git clone https://github.com/MatijaKocevar/task-management.git
+```
 
-git clone https://github.com/MatijaKocevar/task-management.git
+2. Navigate to the project directory:
 
-Building the Project
+```bash
+   cd task-management
+```
+
+### Building the Project
 
 To build the entire project, including the frontend dependencies, follow these steps:
 
-    Build the project:
+1. Build the project:
 
-    bash
+```csharp
+   dotnet build
+```
 
-    dotnet build
+This command will build both the backend and frontend components of the application.
 
-    This command will build both the backend and frontend components of the application.
-
-Usage
+### Usage
 
 To start the application using the development servers, follow these steps:
 
-    Run the backend development server:
+1. Run the backend development server:
 
-    bash
+- Navigate to the `task-management` directory:
 
-dotnet watch run
+```csharp
+   dotnet watch
+```
 
 The development server will automatically reload if there are any code changes.
 
-Run the frontend development server:
+2. Run the frontend development server:
 
-    Navigate to the client-app directory:
+- Navigate to the `client-app` directory:
 
-    bash
+```
+   cd client-app
+```
 
-cd client-app
+- Run the frontend development server:
 
-Run the frontend development server:
+```
+   npm start
+```
 
-bash
+The frontend server will automatically reload if there are any code changes. 3. Access the application:
 
-        npm start
-
-    The frontend server will automatically reload if there are any code changes.
-
-    Access the application:
-        Open your web browser and navigate to https://localhost:5001
+- Open your web browser and navigate to `https://localhost:5001`
 
 Once the project is built and both the backend and frontend development servers are running, you can access the application through your web browser.
-Running with Docker
+
+### Running with Docker
 
 To run the Task Management App using Docker, follow these steps:
 
-    Build and start the Docker containers:
+1. Build and start the Docker containers:
 
-    bash
+```
+   docker-compose up --build
+```
 
-    docker-compose up --build
+This command will build the Docker images and start the containers for the backend and frontend and database.
 
-    This command will build the Docker images and start the containers for the backend and frontend.
+2. Access the application:
 
-    Access the application:
-        Open your web browser and navigate to https://localhost
+- Open your web browser and navigate to `https://localhost`
 
 The Task Management App will be running inside Docker containers and can be accessed through your web browser.
