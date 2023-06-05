@@ -81,7 +81,7 @@ The development server will automatically reload if there are any code changes.
 
 The frontend server will automatically reload if there are any code changes. 3. Access the application:
 
-- Open your web browser and navigate to `https://localhost:5001`
+- Open your web browser and navigate to [https://localhost:5001](https://localhost:5001)
 
 Once the project is built and both the backend and frontend development servers are running, you can access the application through your web browser.
 
