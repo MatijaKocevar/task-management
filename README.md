@@ -98,6 +98,12 @@ To run the Task Management App using Docker, follow these steps:
    docker-compose up
 ```
 
+To stop docker containers, run the following command:
+
+```
+   docker-compose down
+```
+
 This command will build the Docker images and start the containers for the backend and frontend and database.
 
 2. Access the application:
