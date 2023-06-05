@@ -99,6 +99,6 @@ This command will build the Docker images and start the containers for the backe
 
 2. Access the application:
 
-- Open your web browser and navigate to `https://localhost`
+- Open your web browser and navigate to [https://localhost](https://localhost)
 
 The Task Management App will be running inside Docker containers and can be accessed through your web browser.
